@@ -87,3 +87,24 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+*.sql
+.gitsecret/keys/random_seed
+!*.secret
+passwords
+scrapydweb*
+proxies
+quotesbot/config.ini
+scrapy.cfg
+quotesbot/pipelines/tosearch.py
+quotesbot/pipelines/tositemap.py
+quotesbot/pipelines/toskuinfo.py
+quotesbot/pipelines/toskuinfoOnStock.py
+quotesbot/pipelines/tovladpersonal.py
+quotesbot/pipelines/tosearch.py
+
+quotesbot/spiders/tositemap.py
+quotesbot/spiders/toskuinfo.py
+quotesbot/spiders/toskuinfoOnStock.py
+quotesbot/spiders/tovladpersonal.py
+quotesbot/spiders/tosearch.py

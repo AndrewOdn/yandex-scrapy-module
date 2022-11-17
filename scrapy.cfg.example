@@ -1,0 +1,15 @@
+# Automatically created by: scrapy startproject
+#
+# For more information about the [deploy] section see:
+# https://scrapyd.readthedocs.org/en/latest/deploy.html
+
+[settings]
+default = quotesbot.settings
+
+[deploy:default]
+url = http://ip_address:6800/
+project = yandex_parser
+
+[deploy:local]
+url = http://127.0.0.1:6801/
+project = yandex_parser
