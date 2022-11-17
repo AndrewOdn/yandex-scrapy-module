@@ -1,0 +1,40 @@
+image: "python:3.9"
+
+variables:
+  DEPLOY_TARGET: "default"
+
+before_script:
+  - ip=$(curl icanhazip.com)
+  - if [[ $ip == "-" ]]; then DEPLOY_TARGET=local; fi;
+  - apt install wget
+  - wget https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+  - chmod +x mariadb_repo_setup
+  - ./mariadb_repo_setup
+  - apt update
+  - apt install libmariadb3 libmariadb-dev -y
+  - python --version
+  - python -m pip install --upgrade pip
+  - pip install pipenv
+  - pipenv install --system
+
+stages:
+  - Linting and Testing
+  - Deploy
+
+Linting and Testing:
+  stage: Linting and Testing
+  script:
+    - isort . --check-only
+    - black --check --diff .
+    - flake8 .
+    - pip install types-requests
+
+Deploy:
+  stage: Deploy
+  script:
+    - apt install -y apt-transport-https ca-certificates gnupg
+    - apt-get update && apt-get install -y git-secret
+    - echo "$GPG_PRIVATE_KEY" > ./private_key.gpg
+    - gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
+    - git secret reveal -p "$GPG_PASSPHRASE"
+    - scrapyd-deploy $DEPLOY_TARGET

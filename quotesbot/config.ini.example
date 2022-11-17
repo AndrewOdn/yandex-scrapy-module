@@ -1,0 +1,16 @@
+[DB]
+HOST = localhost
+PORT = 3306
+USER = alikson
+PASS = password
+
+[VLAD_DB]
+HOST = 6.tcp.ngrok.io:11264
+PORT = 3306
+NAME = marketplace
+USER = root
+PASS = password
+
+[TELEGRAM]
+TOKEN = token
+CHAT_ID = id
